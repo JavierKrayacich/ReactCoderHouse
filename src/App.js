@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import './components/styles.css';
+import NavBar from './components/NavBar';
+import ItemListContainer from './components/ItemListContainer';
+import ItemDetailContainer from './components/ItemDetailContainer';
+import Cart from './components/Cart';
+import CartProvider from './CartContext';
+import Checkout from './components/Checkout';
 
-function App() {
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <CartProvider>
+      <BrowserRouter>
+        <NavBar/>
+        <main>
+          <Switch>
+            <Route path="/" exact>
+              <ItemListContainer greeting="Bienvenidos a la tienda."/>
+            </Route>
+            <Route path="/category/:id">
+              <ItemListContainer greeting="Bienvenidos a la tienda."/>
+            </Route>
+            <Route path="/item/:id">
+              <ItemDetailContainer/>
+            </Route>
+            <Route path="/cart">
+              <Cart/>
+            </Route>
+            <Route path="/checkout">
+              <Checkout/>
+            </Route>
+          </Switch>
+        </main>
+      </BrowserRouter>
+    </CartProvider>
+  )
 }
 
 export default App;
